@@ -5,7 +5,7 @@ class SF_CacodemonSpawner : Actor replaces Cacodemon
 	{
 		super.PostBeginPlay();
 		class<Actor> spawn = ((curSector && curSector.lightLevel <= 128 && Random(0, 8) == 0) || (Soulful.IsOnGrass(self) && Random(0, 16) == 0)) ? 'SF_Watcher' : 'SF_Cacodemon';
-		A_SpawnItemEx(spawn);
+		A_SpawnItemEx(spawn, flags: SXF_TransferAmbushFlag | SXF_TransferPointers | SXF_TransferSpecial);
 		Destroy();
 	}
 }
