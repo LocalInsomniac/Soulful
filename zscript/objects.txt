@@ -196,16 +196,17 @@ class SF_EmptyBarrel : SF_Barrel
 		Death:
 			TNT1 A 0 Bright
 			{
-				int item = Random(0, 5);
+				int item = Random(0, 6);
 				class<Actor> actor;
 				switch (item)
 				{
 					case (0): actor = "HealthBonus"; break;
 					case (1): actor = "ArmorBonus"; break;
-					case (2): actor = "Clip"; break;
-					case (3): actor = "Shell"; break;
-					case (4): actor = "RocketAmmo"; break;
-					case (5): actor = "Cell"; break;
+					case (2): actor = "Stimpack"; break;
+					case (3): actor = "Clip"; break;
+					case (4): actor = "Shell"; break;
+					case (5): actor = "RocketAmmo"; break;
+					case (6): actor = "Cell"; break;
 				}
 				A_SpawnItemEx(actor);
 				A_NoBlocking();
