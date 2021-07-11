@@ -1,0 +1,154 @@
+class Soulful : EventHandler
+{
+	static const string floorTex[] = 
+	{
+		"GRASS1", "OGRSSA01",
+		"GRASS2", "SLIME13", "OGRSSB01", "OGRSSD01", "OGRSSD02"
+		"RROCK19", "RROCK20", "OGRSSC01", "OGRSSC02", "OGRSSE01"
+	};
+	static const int floorFX[] =
+	{
+		0, 0, //Grass
+		1, 1, 1, 1, 1, //Variant grass
+		2, 2, 2, 2, 2 //Tall grass
+	};
+	
+	/*-----------
+		ACTOR
+	-----------*/
+	
+	static void RadiusDamage(Actor actor, double attackDist, int dmg, string dmgType)
+	{
+        BlockThingsIterator it = BlockThingsIterator.Create(actor, attackDist);
+        while (it.next())
+		{
+			let next = it.thing;
+			if (next == actor || next.bKilled || next.bNoRadiusDmg
+			|| ((actor is "SF_Watcher" || actor is "SF_WatcherGas") && next is "Cacodemon")) continue;
+
+			double dist = actor.Distance3D(next);
+			if (dist > attackDist || !actor.CheckSight(next, SF_IgnoreWaterBoundary)) continue;
+            next.DamageMObj(actor, actor.target, dmg, dmgType, flags: DMG_Thrustless);
+        }
+	}
+	
+	/*-----------
+		DETAIL
+	-----------*/
+	
+	//Automatically detail map
+	override void WorldLoaded(WorldEvent e)
+	{
+		//High detail mode (will spawn decorations everywhere, slower) | Code from FancyWorld by Kinsie
+		if (sv_sf_spawnDetails == 2 || sv_sf_spawnDetails == 3)
+		{
+			int scanX = -32448;
+			int scanY = 32448;
+			int scanZ = 0;
+			
+			Vector3 scan3 = (scanX, scanY, scanZ);
+			
+			while (scanY > -32448)
+			{
+				while (scanX < 32448)
+				{
+					Vector2 scanPos = (scanX, scanY);
+					scanZ = Level.PointInSector(scanPos).floorPlane.ZAtPoint(scanPos);
+					if (Level.IsPointInLevel(scan3))
+					{
+						Array<string> getFloorTex;
+						getFloorTex.Push(TexMan.GetName(Level.PointInSector(scanPos).GetTexture(Sector.floor)));
+						SpawnDetail(getFloorTex, scan3 + (FRandom(-32, 32), FRandom(-32, 32), 0));
+					}
+					scanX += 64;
+					scan3 = (scanX, scanY, scanZ);
+				}
+				scanX = -32448;
+				scanY -= 64;
+			}
+		}
+	}
+	
+	//Marine bush easter egg
+	override void WorldThingSpawned(WorldEvent e)
+	{
+		let obj = e.thing;
+		if (obj && obj is "Chainsaw" && Soulful.IsOnGrass(obj, false) && Random(0, 100) == 0)
+		{
+			double angle = FRandom(0, 360);
+			Actor.Spawn("SF_MarineBush", obj.pos + (cos(angle) * 64, sin(angle) * 64, 0));
+		}
+	}
+	
+	static void SpawnDetail(Array<string> checkTexture, Vector3 pos)
+	{
+		for (int i = 0; i < checkTexture.Size(); i++)
+		{
+			for (int j = 0; j < Soulful.floorTex.Size(); j++)
+			{
+				if (checkTexture[i] == Soulful.floorTex[j] && Random(0, 2) == 1)
+				{
+					string getActor;
+					switch (Soulful.floorFX[j])
+					{
+						case (0): getActor = "SF_Grass"; break;
+						case (1): getActor = (Random(0, 1) == 1) ? "SF_TallGrass" : "SF_Grass"; break;
+						case (2): getActor = "SF_TallGrass"; break;
+					}
+					Actor.Spawn(getActor, pos);
+					return;
+				}
+			}
+		}
+	}
+	
+	static bool IsOnGrass(Actor actor, bool canBeRocky = true)
+	{
+		let mySector = actor.curSector;
+		if (mySector)
+		{
+			string getFloorTex = TexMan.GetName(mySector.GetTexture(Sector.floor));
+			int i;
+			if (canBeRocky)
+			{
+				string grassTextures[] = {"GRASS1", "OGRSSA01", "GRASS2", "SLIME13", "OGRSSB01", "OGRSSD01", "OGRSSD02", "RROCK19", "RROCK20", "OGRSSC01", "OGRSSC02", "OGRSSE01"};
+				for (i = 0; i < grassTextures.Size(); i++) if (grassTextures[i] == getFloorTex) return true;
+			}
+			else
+			{
+				string grassTextures[] = {"GRASS1", "OGRSSA01", "GRASS2", "OGRSSB01", "OGRSSD01", "OGRSSD02", "OGRSSC01", "OGRSSC02", "OGRSSE01"};
+				for (i = 0; i < grassTextures.Size(); i++) if (grassTextures[i] == getFloorTex) return true;
+			}
+		}
+		return false;
+	}
+	
+	static void SpawnGrass(Actor actor)
+	{
+		//Low detail mode (spawn details only around decorations, faster)
+		Sector mySector = actor.curSector;
+		if ((sv_sf_spawnDetails == 1 || sv_sf_spawnDetails == 3) && mySector)
+		{
+			Array<string> grassTextures;
+			grassTextures.Push("GRASS1");
+			grassTextures.Push("GRASS2");
+			grassTextures.Push("SLIME13");
+			grassTextures.Push("RROCK19");
+			grassTextures.Push("RROCK20");
+			string getFloorTex = TexMan.GetName(mySector.GetTexture(Sector.floor));
+			for (int i = 0; i < grassTextures.Size(); i++)
+			{
+				if (grassTextures[i] == getFloorTex)
+				{
+					for (int j = 0; j < Random(0, 10); j++)
+					{
+						double dir = FRandom(0, 360);
+						double range = actor.radius + FRandom(-32, 32);
+						Soulful.SpawnDetail(grassTextures, actor.pos + (cos(dir) * range, sin(dir) * range, 0));
+					}
+					return;
+				}
+			}
+		}
+	}
+}

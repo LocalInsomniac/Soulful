@@ -1,0 +1,30 @@
+//Visual
+user float cl_sf_bloodFrequency = 1;
+user bool cl_sf_gibsStayOnFloor = true;
+
+user bool cl_sf_randomizeDecorations = true;
+server int sv_sf_spawnDetails = 2;
+
+//Gameplay
+server bool sv_sf_randomizeMonsters = true;
+
+server bool sv_sf_r_zombieman = true;
+server bool sv_sf_r_shotgunGuy = true;
+server bool sv_sf_r_heavyWeaponDude = true;
+server bool sv_sf_r_imp = true;
+server bool sv_sf_r_demon = true;
+server bool sv_sf_r_spectre = true;
+server bool sv_sf_r_lostSoul = true;
+server bool sv_sf_r_cacodemon = true;
+server bool sv_sf_r_hellKnight = true;
+server bool sv_sf_r_baronOfHell = true;
+server bool sv_sf_r_arachnotron = true;
+server bool sv_sf_r_painElemental = true;
+server bool sv_sf_r_revenant = true;
+server bool sv_sf_r_mancubus = true;
+server bool sv_sf_r_archVile = true;
+server bool sv_sf_r_spiderMastermind = true;
+server bool sv_sf_r_cyberdemon = true;
+server bool sv_sf_r_ss = false;
+
+server bool sv_sf_randomizeBarrels = true;

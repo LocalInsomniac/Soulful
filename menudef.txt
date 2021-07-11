@@ -1,0 +1,64 @@
+//Option values
+OptionValue "SF_Options_SpawnDetails"
+{
+    0, "No"
+    1, "Low"
+    2, "High"
+	3, "Ultra"
+}
+
+//Main options
+OptionMenu "SF_Options"
+{
+    Title "Soulful Options"
+	StaticText "Most changes will take full effect on level restart.", "White"
+	StaticText ""
+	Submenu "Enemy Replacement Options", "SF_ActorOptions"
+	StaticText ""
+    StaticText "Visual options", "Yellow"
+	Slider "Flying blood frequency", "cl_sf_bloodFrequency", 0.3, 1, 0.1
+	Option "Gibs stay on floor", "cl_sf_gibsStayOnFloor", "YesNo"
+	StaticText ""
+	Option "Randomize decorations", "cl_sf_randomizeDecorations", "YesNo"
+	Option "Spawn details", "sv_sf_spawnDetails", "SF_Options_SpawnDetails"
+	StaticText ""
+	StaticText "Gameplay options", "Yellow"
+	Option "Randomize monsters", "sv_sf_randomizeMonsters", "YesNo"
+	Option "Randomize barrels", "sv_sf_randomizeBarrels", "YesNo"
+}
+
+//Enemy replacement options
+OptionMenu "SF_ActorOptions"
+{
+	Title "Enemy Replacement Options"
+	StaticText "With this menu, you can control which enemies will be", "White"
+	StaticText "replaced with Soulful's enemies. This is useful for retaining new", "White"
+	StaticText "enemies in map packs that replace vanilla enemies.", "White"
+	StaticText ""
+	StaticText "These changes will take full effect on level restart.", "White"
+	StaticText ""
+	Option "Zombieman", "sv_sf_r_zombieman", "SF_ActorOptions_Toggle"
+	Option "Shotgun Guy", "sv_sf_r_shotgunGuy", "SF_ActorOptions_Toggle"
+	Option "Heavy Weapon Dude", "sv_sf_r_heavyWeaponDude", "SF_ActorOptions_Toggle"
+	Option "Imp", "sv_sf_r_imp", "SF_ActorOptions_Toggle"
+	Option "Demon", "sv_sf_r_demon", "SF_ActorOptions_Toggle"
+	Option "Spectre", "sv_sf_r_spectre", "SF_ActorOptions_Toggle"
+	Option "Lost Soul", "sv_sf_r_lostSoul", "SF_ActorOptions_Toggle"
+	Option "Cacodemon", "sv_sf_r_cacodemon", "SF_ActorOptions_Toggle"
+	Option "Hell Knight", "sv_sf_r_hellKnight", "SF_ActorOptions_Toggle"
+	Option "Baron of Hell", "sv_sf_r_baronOfHell", "SF_ActorOptions_Toggle"
+	Option "Arachnotron", "sv_sf_r_arachnotron", "SF_ActorOptions_Toggle"
+	Option "Pain Elemental", "sv_sf_r_painElemental", "SF_ActorOptions_Toggle"
+	Option "Revenant", "sv_sf_r_revenant", "SF_ActorOptions_Toggle"
+	Option "Mancubus", "sv_sf_r_mancubus", "SF_ActorOptions_Toggle"
+	Option "Arch-vile", "sv_sf_r_archVile", "SF_ActorOptions_Toggle"
+	Option "Spider Mastermind", "sv_sf_r_spiderMastermind", "SF_ActorOptions_Toggle"
+	Option "Cyberdemon", "sv_sf_r_cyberdemon", "SF_ActorOptions_Toggle"
+	Option "SS", "sv_sf_r_ss", "SF_ActorOptions_Toggle"
+}
+
+AddOptionMenu "OptionsMenu"
+{
+    StaticText ""
+    Submenu "Soulful Options", "SF_Options"
+}

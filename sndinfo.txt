@@ -1,0 +1,23 @@
+//Monsters
+$random SF_HellifiedSoldier/sight {SF_HellifiedSoldier/sight1 SF_HellifiedSoldier/sight2 SF_HellifiedSoldier/sight3}
+$random SF_HellifiedSoldier/death {SF_HellifiedSoldier/death1 SF_HellifiedSoldier/death2 SF_HellifiedSoldier/death3}
+SF_HellifiedSoldier/sight1 DSPOSIT1
+SF_HellifiedSoldier/sight2 DSPOSIT2
+SF_HellifiedSoldier/sight3 DSPOSIT3
+SF_HellifiedSoldier/active DSPOSACT
+SF_HellifiedSoldier/pain DSPOPAIN
+SF_HellifiedSoldier/death1 DSPODTH1
+SF_HellifiedSoldier/death2 DSPODTH2
+SF_HellifiedSoldier/death3 DSPODTH3
+SF_HellifiedSoldier/attack DSSHOTGN
+$limit SF_HellifiedSoldier/attack 0
+
+SF_Watcher/sight SFWATSIT
+SF_Watcher/active SFWATACT
+SF_Watcher/pain SFWATPAI
+SF_Watcher/death SFWATDTH
+SF_Watcher/attack DSFIRSHT
+
+//Objects
+SF_Lamp/break SFLAMPBR
+SF_FireBarrel/fire DSFLAME

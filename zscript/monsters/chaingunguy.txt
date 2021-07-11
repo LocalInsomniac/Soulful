@@ -1,0 +1,147 @@
+//Heavy Weapon Dude Spawner
+class SF_ChaingunGuySpawner : RandomSpawner replaces ChaingunGuy
+{
+	Default
+	{
+		DropItem "SF_ChaingunGuy", 255, 3;
+		DropItem "SF_HellifiedSoldier", 255, 1;
+	}
+}
+
+//Heavy Weapon Dude
+class SF_ChaingunGuy : ChaingunGuy
+{
+	States
+	{
+		Spawn:
+			SCPO AB 10 A_Look;
+			Loop;
+		
+		See:
+			SCPO AABBCCDD 3 A_Chase;
+			Loop;
+		
+		Missile:
+			SCPO E 10 A_FaceTarget;
+			SCPO FE 4 Bright A_CPosAttack;
+			SCPO F 0 A_CPosRefire;
+			Goto Missile + 1;
+		
+		Pain:
+			SCPO G 3;
+			SCPO G 3 A_Pain;
+			Goto See;
+		
+		Death:
+			SCPO H 5;
+			SCPO I 5 A_Scream;
+			SCPO J 5 A_NoBlocking;
+			SCPO KLM 5;
+			SCPO N -1;
+			Stop;
+		
+		XDeath:
+			SCPO O 5;
+			SCPO P 5 A_XScream;
+			SCPO Q 5 A_NoBlocking;
+			SCPO RS 5;
+			SCPO T -1;
+			Stop;
+		
+		Raise:
+			SCPO NMLKJIH 5;
+			Goto See;
+	}
+}
+
+//Hellified Soldier
+class SF_HellifiedSoldier : Actor
+{
+	Default
+	{
+		+FloorClip
+		Health 70;
+		Radius 20;
+		Height 56;
+		Mass 100;
+		Speed 9;
+		PainChance 170;
+		Monster;
+		SeeSound "SF_HellifiedSoldier/sight";
+		PainSound "SF_HellifiedSoldier/pain";
+		DeathSound "SF_HellifiedSoldier/death";
+		ActiveSound "SF_HellifiedSoldier/active";
+		AttackSound "SF_HellifiedSoldier/attack";
+		Obituary "%o was mowed down by a Hellified Soldier.";
+		Tag "Hellified Soldier";
+		DropItem "Chaingun";
+	}
+	
+	States
+	{
+		Spawn:
+			SHSO AB 10 A_Look;
+			Loop;
+		
+		See:
+			SHSO AABBCCDD 3 A_Chase;
+			Loop;
+		
+		Missile:
+			SHSO E 20 A_FaceTarget;
+			SHSO F 0 A_StartSound(attackSound, Chan_Weapon);
+			SHSO FE 2 Bright A_SpawnProjectile("SF_HellifiedSoldierBullet", 28, 0, FRandom(-10, 10));
+			SHSO F 0 A_CPosRefire;
+			Goto Missile + 1;
+		
+		Pain:
+			SHSO G 3;
+			SHSO G 3 A_Pain;
+			Goto See;
+		
+		Death:
+			SHSO H 5;
+			SHSO I 5 A_Scream;
+			SHSO J 5 A_NoBlocking;
+			SHSO K 5;
+			SHSO L -1;
+			Stop;
+		
+		XDeath:
+			SHSO M 5;
+			SHSO N 5 A_XScream;
+			SHSO O 5 A_NoBlocking;
+			SHSO PQRST 5;
+			SHSO U -1;
+			Stop;
+		
+		Raise:
+			SHSO LKJIH 5;
+			Goto See;
+	}
+}
+
+//Hellified Soldier Bullet
+class SF_HellifiedSoldierBullet : Actor
+{
+	Default
+	{
+		Radius 3;
+		Height 4;
+		Speed 25;
+		FastSpeed 50;
+		Damage 1;
+		Projectile;
+	}
+	
+	States
+	{
+		Spawn:
+			SBUL AB 3 Bright;
+			Loop;
+		
+		Death:
+			SBUL CDE 3 Bright;
+			Stop;
+	}
+}
