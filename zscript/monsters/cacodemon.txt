@@ -159,7 +159,7 @@ class SF_WatcherGas : Actor
 	States
 	{
 		Spawn:
-			SGAS ABCDEFGHIJKLMNOP 2 Bright { Soulful.RadiusDamage(self, 50, 1, "Poison"); }
+			SGAS ABCDEFGHIJKLMNOP 2 Bright { Soulful.RadiusDamage(self, 64, 1, "Poison"); }
 			Stop;
 	}
 }
