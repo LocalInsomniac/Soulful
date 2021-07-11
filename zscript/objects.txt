@@ -22,7 +22,7 @@ class SF_MarineBush : Actor
 }
 
 //Torch tree
-class SF_TorchTree : TorchTree replaces TorchTree
+class SF_TorchTree : TorchTree
 {
 	States
 	{
@@ -46,7 +46,7 @@ class SF_TorchTree : TorchTree replaces TorchTree
 }
 
 //Big tree
-class SF_BigTree : BigTree replaces BigTree
+class SF_BigTree : BigTree
 {
 	States
 	{
@@ -77,7 +77,7 @@ class SF_BigTree : BigTree replaces BigTree
 }
 
 //Stalagtite/rock
-class SF_Stalagtite : Stalagtite replaces Stalagtite
+class SF_Stalagtite : Stalagtite
 {
 	States
 	{
@@ -99,7 +99,7 @@ class SF_Stalagtite : Stalagtite replaces Stalagtite
 }
 
 //Burning barrel
-class SF_BurningBarrel : BurningBarrel replaces BurningBarrel
+class SF_BurningBarrel : BurningBarrel
 {
 	Default { Height 28; }
 	States
@@ -117,7 +117,7 @@ class SF_BurningBarrel : BurningBarrel replaces BurningBarrel
 }
 
 //Barrel spawner
-class SF_BarrelSpawner : RandomSpawner replaces ExplosiveBarrel
+class SF_BarrelSpawner : RandomSpawner
 {
 	Default
 	{

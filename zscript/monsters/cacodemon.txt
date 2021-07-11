@@ -1,5 +1,5 @@
 //Cacodemon Spawner
-class SF_CacodemonSpawner : Actor replaces Cacodemon
+class SF_CacodemonSpawner : Actor
 {
 	override void PostBeginPlay()
 	{

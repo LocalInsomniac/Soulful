@@ -17,6 +17,47 @@ class Soulful : EventHandler
 		ACTOR
 	-----------*/
 	
+	//Replace actors
+	override void CheckReplacement(ReplaceEvent e)
+	{
+		bool randomizeDecorations = CVar.FindCVar("cl_sf_randomizeDecorations").GetBool();
+		switch (e.replacee.GetClassName())
+		{
+			//Monsters
+			case ('ChaingunGuy'): if (sv_sf_r_heavyWeaponDude) e.replacement = "SF_ChaingunGuySpawner"; break;
+			case ('Cacodemon'): if (sv_sf_r_cacodemon) e.replacement = "SF_CacodemonSpawner"; break;
+			//Objects
+			case ('ExplosiveBarrel'): if (sv_sf_randomizeBarrels) e.replacement = "SF_BarrelSpawner"; break;
+			case ('TorchTree'): if (randomizeDecorations) e.replacement = "SF_TorchTree"; break;
+			case ('BigTree'): if (randomizeDecorations) e.replacement = "SF_BigTree"; break;
+			case ('Stalagtite'): if (randomizeDecorations) e.replacement = "SF_Stalagtite"; break;
+			case ('BurningBarrel'): if (randomizeDecorations) e.replacement = "SF_BurningBarrel"; break;
+		}
+	}
+	
+	override void CheckReplacee(ReplacedEvent e)
+	{
+		switch (e.replacement.GetClassName())
+		{
+			//Monsters
+			case ('SF_ChaingunGuySpawner'):
+			case ('SF_ChaingunGuy'): 
+			case ('SF_HellifiedSoldier'): e.replacee = "ChaingunGuy"; break;
+			case ('SF_CacodemonSpawner'):
+			case ('SF_Cacodemon'):
+			case ('SF_Watcher'): e.replacee = "Cacodemon"; break;
+			//Objects
+			case ('SF_BarrelSpawner'):
+			case ('SF_Barrel'):
+			case ('SF_FireBarrel'):
+			case ('SF_EmptyBarrel'): e.replacee = "ExplosiveBarrel"; break;
+			case ('SF_TorchTree'): e.replacee = "TorchTree"; break;
+			case ('SF_BigTree'): e.replacee = "BigTree"; break;
+			case ('SF_Stalagtite'): e.replacee = "Stalagtite"; break;
+			case ('SF_BurningBarrel'): e.replacee = "BurningBarrel"; break;
+		}
+	}
+	
 	static void RadiusDamage(Actor actor, double attackDist, int dmg, string dmgType)
 	{
         BlockThingsIterator it = BlockThingsIterator.Create(actor, attackDist);

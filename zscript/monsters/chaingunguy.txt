@@ -1,5 +1,5 @@
 //Heavy Weapon Dude Spawner
-class SF_ChaingunGuySpawner : RandomSpawner replaces ChaingunGuy
+class SF_ChaingunGuySpawner : RandomSpawner
 {
 	Default
 	{
