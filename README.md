@@ -20,6 +20,8 @@ DrPyspy
 
 Hellstorm Archon
 
+JoeyTD
+
 osjclatchford
 
 id Software
@@ -31,6 +33,8 @@ NaturalTvventy
 Negatronica
 
 Nmn
+
+PSTrooper
 
 Vader
 

@@ -1,0 +1,132 @@
+//Nazi
+class SF_NaziSpawner : RandomSpawner
+{
+	Default
+	{
+		DropItem "SF_SSNazi", 255, 3;
+		DropItem "SF_SniperNazi", 255, 1;
+	}
+}
+
+//SS Guard
+class SF_SSNazi : WolfensteinSS
+{
+	Default
+	{
+		SeeSound "SF_SSNazi/sight";
+		ActiveSound "SF_SSNazi/active";
+		PainSound "SF_SSNazi/pain";
+		DeathSound "SF_SSNazi/death";
+		AttackSound "SF_SSNazi/attack";
+	}
+	
+	States
+	{
+		Spawn:
+			SSSW W 10 A_Look;
+			Loop;
+
+		See:
+			SSSW AABBCCDD 3 A_Chase;
+			Loop;
+
+		Missile:
+			SSSW E 10 A_FaceTarget;
+			SSSW F 10 A_FaceTarget;
+			SSSW G 5 Bright A_CPosAttack;
+			SSSW F 5 A_FaceTarget;
+			SSSW G 5 Bright A_CPosAttack;
+			SSSW F 5 A_FaceTarget;
+			SSSW G 5 Bright A_CPosAttack;
+			SSSW F 5 A_FaceTarget;
+			SSSW F 0 A_CPosRefire;
+			Goto Missile + 2;
+
+		Pain:
+			SSSW H 3;
+			SSSW H 3 A_Pain;
+			Goto See;
+
+		Death:
+			SSSW I 5;
+			SSSW J 5 A_Scream;
+			SSSW K 5 A_NoBlocking;
+			SSSW L 5;
+			SSSW M -1;
+			Stop;
+
+		XDeath:
+			SSSW N 5 ;
+			SSSW O 5 A_XScream;
+			SSSW P 5 A_NoBlocking;
+			SSSW QRSTU 5;
+			SSSW V -1;
+			Stop;
+
+		Raise:
+			SSSW MLKJI 5;
+			Goto See;
+	}
+}
+
+//Sniper
+class SF_SniperNazi : SF_SSNazi
+{
+	Default
+	{
+		Health 45;
+		Speed 10;
+		SeeSound "SF_SniperNazi/sight";
+		ActiveSound "SF_SniperNazi/active";
+		PainSound "SF_SniperNazi/pain";
+		DeathSound "SF_SniperNazi/death";
+		AttackSound "SF_SniperNazi/attack";
+	}
+	
+	States
+	{
+		Spawn:
+			SSNI W 10 A_Look;
+			Loop;
+
+		See:
+			SSNI AABBCCDD 3 A_Chase;
+			Loop;
+
+		Missile:
+			SSNI E 10 A_FaceTarget;
+			SSNI F 20 A_FaceTarget;
+			SSNI G 5 Bright
+			{
+				A_PlaySound(attackSound, Chan_Weapon);
+				A_CustomBulletAttack(5, 0, 1, Random(1, 5) * 10, "BulletPuff", 0, CBAF_NoRandom);
+			}
+			SSNI F 5 A_FaceTarget;
+			Goto See;
+
+		Pain:
+			SSNI H 3;
+			SSNI H 3 A_Pain;
+			Goto See;
+
+		Death:
+			SSNI I 5;
+			SSNI J 5 A_Scream;
+			SSNI K 5 A_NoBlocking;
+			SSNI L 5;
+			SSNI M -1;
+			Stop;
+
+		XDeath:
+			SSNI N 5 ;
+			SSNI O 5 A_XScream;
+			SSNI P 5 A_NoBlocking;
+			SSNI QRSTU 5;
+			SSNI V -1;
+			Stop;
+
+		Raise:
+			SSNI MLKJI 5;
+			Goto See;
+	}
+}

@@ -18,6 +18,38 @@ SF_Watcher/pain SFWATPAI
 SF_Watcher/death SFWATDTH
 SF_Watcher/attack DSFIRSHT
 
+$random SF_SSNazi/sight {SF_SSNazi/sight1 SF_SSNazi/sight2 SF_SSNazi/sight3}
+$random SF_SSNazi/active {SF_SSNazi/active1 SF_SSNazi/active2}
+$random SF_SSNazi/pain {SF_SSNazi/pain1 SF_SSNazi/pain2}
+$random SF_SSNazi/death {SF_SSNazi/death1 SF_SSNazi/death2}
+SF_SSNazi/sight1 SFNZSIT1
+SF_SSNazi/sight2 SFNZSIT2
+SF_SSNazi/sight3 SFNZSIT3
+SF_SSNazi/active1 SFNZACT1
+SF_SSNazi/active2 SFNZACT2
+SF_SSNazi/pain1 SFNZPAI1
+SF_SSNazi/pain2 SFNZPAI2
+SF_SSNazi/death1 SFNZDTH1
+SF_SSNazi/death2 SFNZDTH2
+SF_SSNazi/attack SFNZGUN1
+$limit SF_SSNazi/attack 0
+
+$random SF_SniperNazi/sight {SF_SniperNazi/sight1 SF_SniperNazi/sight2 SF_SniperNazi/sight3}
+$random SF_SniperNazi/active {SF_SniperNazi/active1 SF_SniperNazi/active2}
+$random SF_SniperNazi/pain {SF_SniperNazi/pain1 SF_SniperNazi/pain2}
+$random SF_SniperNazi/death {SF_SniperNazi/death1 SF_SniperNazi/death2}
+SF_SniperNazi/sight1 SFNZSIT1
+SF_SniperNazi/sight2 SFNZSIT2
+SF_SniperNazi/sight3 SFNZSIT3
+SF_SniperNazi/active1 SFNZACT1
+SF_SniperNazi/active2 SFNZACT2
+SF_SniperNazi/pain1 SFNZPAI1
+SF_SniperNazi/pain2 SFNZPAI2
+SF_SniperNazi/death1 SFNZDTH1
+SF_SniperNazi/death2 SFNZDTH2
+SF_SniperNazi/attack SFNZGUN2
+$limit SF_SniperNazi/attack 0
+
 //Objects
 SF_Lamp/break SFLAMPBR
 SF_FireBarrel/fire DSFLAME

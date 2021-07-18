@@ -26,6 +26,8 @@ class Soulful : EventHandler
 			//Monsters
 			case ('ChaingunGuy'): if (sv_sf_r_heavyWeaponDude) e.replacement = "SF_ChaingunGuySpawner"; break;
 			case ('Cacodemon'): if (sv_sf_r_cacodemon) e.replacement = "SF_CacodemonSpawner"; break;
+			case ('WolfensteinSS'): if (sv_sf_r_ss) e.replacement = "SF_NaziSpawner"; break;
+			
 			//Objects
 			case ('ExplosiveBarrel'): if (sv_sf_randomizeBarrels) e.replacement = "SF_BarrelSpawner"; break;
 			case ('TorchTree'): if (randomizeDecorations) e.replacement = "SF_TorchTree"; break;
@@ -46,6 +48,9 @@ class Soulful : EventHandler
 			case ('SF_CacodemonSpawner'):
 			case ('SF_Cacodemon'):
 			case ('SF_Watcher'): e.replacee = "Cacodemon"; break;
+			case ('SF_SSNazi'):
+			case ('SF_SniperNazi'): e.replacee = "WolfensteinSS"; break;
+			
 			//Objects
 			case ('SF_BarrelSpawner'):
 			case ('SF_Barrel'):
