@@ -65,7 +65,9 @@ class SF_BigTree : BigTree
 			Stop;
 			STR2 F -1 A_Jump(128, 1);
 			Stop;
-			STR2 G -1;
+			STR2 G -1 A_Jump(128, 1);
+			Stop;
+			STR2 H -1;
 			Stop;
 		
 		Spawn2:
