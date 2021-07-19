@@ -98,7 +98,7 @@ class SF_SniperNazi : SF_SSNazi
 			SSNI F 20 A_FaceTarget;
 			SSNI G 5 Bright
 			{
-				A_PlaySound(attackSound, Chan_Weapon);
+				A_StartSound(attackSound, Chan_Weapon);
 				A_CustomBulletAttack(5, 0, 1, Random(1, 5) * 10, "BulletPuff", 0, CBAF_NoRandom);
 			}
 			SSNI F 5 A_FaceTarget;
