@@ -1,0 +1,124 @@
+//Demon Spawner
+class SF_DemonSpawner : Actor
+{
+	override void PostBeginPlay()
+	{
+		super.PostBeginPlay();
+		class<Actor> spawn = (Soulful.IsOnMud(self) && Random(0, 4) == 0) ? 'SF_Butcher' : 'SF_Demon';
+		A_SpawnItemEx(spawn, flags: SXF_TransferAmbushFlag | SXF_TransferPointers | SXF_TransferSpecial);
+		Destroy();
+	}
+}
+
+//Demon
+class SF_Demon : Demon
+{
+	States
+	{
+		Spawn:
+			SSAR AB 10 A_Look;
+			Loop;
+
+		See:
+			SSAR AABBCCDD 2 Fast A_Chase;
+			Loop;
+
+		Melee:
+			SSAR EF 8 Fast A_FaceTarget;
+			SSAR G 8 Fast A_SargAttack;
+			Goto See;
+
+		Pain:
+			SSAR H 2 Fast;
+			SSAR H 2 Fast A_Pain;
+			Goto See;
+
+		Death:
+			SSAR I 7;
+			SSAR J 7 A_Scream;
+			SSAR K 5;
+			SSAR L 5 A_NoBlocking;
+			SSAR M 4;
+			SSAR N -1;
+			Stop;
+
+		Raise:
+			SSAR NMLKJI 5;
+			Goto See;
+	}
+}
+
+//Butcher
+class SF_Butcher : Demon
+{
+	Default
+	{
+		Health 140;
+		Speed 12;
+		MaxTargetRange 260;
+		MeleeRange 48;
+		SeeSound "SF_Butcher/sight";
+		AttackSound "SF_Butcher/melee";
+		PainSound "SF_Butcher/pain";
+		DeathSound "SF_Butcher/death";
+		ActiveSound "SF_Butcher/active";
+		Obituary "%o was mauled by a Butcher.";
+		Tag "Butcher";
+	}
+	
+	States
+	{
+		Spawn:
+			SBUT AB 10 A_Look;
+			Loop;
+
+		See:
+			SBUT AABBCCDD 2 Fast A_Chase;
+			Loop;
+
+		Missile:
+			SBUT E 5 Fast A_FaceTarget;
+			SBUT F 14
+			{
+				painChance = 0;
+				bDropOff = true;
+				A_FaceTarget();
+				A_ChangeVelocity(16, 0, 6, CVF_Relative | CVF_Replace);
+				A_StartSound("SF_Butcher/attack");
+			}
+			SBUT G 8 Fast A_SargAttack;
+			SBUT G 1 A_JumpIf((pos.z == floorZ || bOnMObj), 1);
+			Wait;
+			SBUT G 0 A_ButcherReset;
+			Goto See;
+			
+		Melee:
+			SBUT EF 7 Fast A_FaceTarget;
+			SBUT G 7 Fast A_SargAttack;
+			Goto See;
+
+		Pain:
+			SBUT H 2 Fast;
+			SBUT H 2 Fast A_Pain;
+			Goto See;
+
+		Death:
+			SBUT I 7 A_ButcherReset;
+			SBUT J 7 A_Scream;
+			SBUT K 5;
+			SBUT L 5 A_NoBlocking;
+			SBUT M 4;
+			SBUT N -1;
+			Stop;
+
+		Raise:
+			SBUT NMLKJI 5;
+			Goto See;
+	}
+	
+	action void A_ButcherReset()
+	{
+		painChance = default.painChance;
+		bDropOff = false;
+	}
+} 

@@ -12,6 +12,14 @@ SF_HellifiedSoldier/death3 DSPODTH3
 SF_HellifiedSoldier/attack DSSHOTGN
 $limit SF_HellifiedSoldier/attack 0
 
+SF_Butcher/sight DSSGTSIT
+SF_Butcher/active DSDMACT
+SF_Butcher/pain DSDMPAIN
+SF_Butcher/attack SFBUTATK
+SF_Butcher/melee DSSGTATK
+SF_Butcher/death DSSGTDTH
+$limit SF_Butcher/melee 4
+
 SF_Watcher/sight SFWATSIT
 SF_Watcher/active SFWATACT
 SF_Watcher/pain SFWATPAI
