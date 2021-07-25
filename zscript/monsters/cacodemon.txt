@@ -60,6 +60,7 @@ class SF_Watcher : Cacodemon
 {
 	Default
 	{
+		Health 450;
 		SeeSound "SF_Watcher/sight";
 		ActiveSound "SF_Watcher/active";
 		PainSound "SF_Watcher/pain";

@@ -53,7 +53,6 @@ class SF_Butcher : Demon
 {
 	Default
 	{
-		Health 140;
 		Speed 12;
 		MaxTargetRange 260;
 		MeleeRange 48;

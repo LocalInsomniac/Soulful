@@ -55,18 +55,11 @@ class SF_ChaingunGuy : ChaingunGuy
 }
 
 //Hellified Soldier
-class SF_HellifiedSoldier : Actor
+class SF_HellifiedSoldier : ChaingunGuy
 {
 	Default
 	{
-		+FloorClip
-		Health 70;
-		Radius 20;
-		Height 56;
-		Mass 100;
 		Speed 9;
-		PainChance 170;
-		Monster;
 		SeeSound "SF_HellifiedSoldier/sight";
 		PainSound "SF_HellifiedSoldier/pain";
 		DeathSound "SF_HellifiedSoldier/death";
@@ -74,7 +67,6 @@ class SF_HellifiedSoldier : Actor
 		AttackSound "SF_HellifiedSoldier/attack";
 		Obituary "%o was mowed down by a Hellified Soldier.";
 		Tag "Hellified Soldier";
-		DropItem "Chaingun";
 	}
 	
 	States
