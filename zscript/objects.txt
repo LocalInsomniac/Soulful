@@ -1,3 +1,7 @@
+/*=========
+DECORATIONS
+=========*/
+
 //Marine bush
 class SF_MarineBush : Actor
 {
@@ -117,6 +121,10 @@ class SF_BurningBarrel : BurningBarrel
 			Loop;
 	}
 }
+
+/*=====
+OBJECTS
+=====*/
 
 //Barrel spawner
 class SF_BarrelSpawner : RandomSpawner
@@ -246,5 +254,48 @@ class SF_FireBarrel : SF_Barrel
 			TNT1 A 1055 A_BarrelDestroy;
 			TNT1 A 5 A_Respawn;
 			Wait;
+	}
+}
+
+/*===
+ITEMS
+===*/
+
+class SF_BerserkSpawner : RandomSpawner
+{
+	Default
+	{
+		DropItem "Berserk", 255, 1;
+		DropItem "SF_QuadDamageSphere", 255, 1;
+		DropItem "SF_AndrenalinePack", 255, 1;
+	}
+}
+
+class SF_QuadDamageSphere : Berserk
+{
+	Default { Inventory.PickUpMessage "Quadruple Damage!"; }
+	
+	States
+	{
+		Spawn:
+			SQDS AB 6 Bright;
+			Loop;
+
+		Pickup:
+			TNT1 A 0 A_GiveInventory("SF_PowerQuadDamage");
+			Stop;
+	}
+}
+
+class SF_AndrenalinePack : Berserk
+{
+	Default { Inventory.PickUpMessage "Andrenaline Rush!"; }
+	
+	States
+	{
+		Pickup:
+			TNT1 A 0 A_GiveInventory("SF_PowerAndrenaline");
+			TNT1 A 0 A_GiveInventory("SF_PowerAndrenaline2");
+			Stop;
 	}
 }

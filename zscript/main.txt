@@ -1,3 +1,7 @@
+/*====
+SYSTEM
+====*/
+
 class Soulful : EventHandler
 {
 	static const string floorTex[] = 
@@ -13,9 +17,9 @@ class Soulful : EventHandler
 		2, 2, 2, 2, 2 //Tall grass
 	};
 	
-	/*-----------
-		ACTOR
-	-----------*/
+	/*===
+	ACTOR
+	===*/
 	
 	//Replace actors
 	override void CheckReplacement(ReplaceEvent e)
@@ -82,9 +86,9 @@ class Soulful : EventHandler
         }
 	}
 	
-	/*-----------
-		DETAIL
-	-----------*/
+	/*====
+	DETAIL
+	====*/
 	
 	//Automatically detail map
 	override void WorldLoaded(WorldEvent e)
@@ -212,5 +216,39 @@ class Soulful : EventHandler
 				}
 			}
 		}
+	}
+}
+
+/*======
+POWERUPS
+======*/
+
+class SF_PowerQuadDamage : PowerDamage
+{
+	Default
+	{
+		PowerUp.Duration -60;
+		PowerUp.Color "RedMap";
+		Inventory.Icon "SQDSA0";
+		DamageFactor "Normal", 4;
+	}
+}
+
+class SF_PowerAndrenaline : PowerDoubleFiringSpeed
+{
+	Default
+	{
+		PowerUp.Duration -60;
+		PowerUp.Color "FF 00 00", 0.25;
+		Inventory.Icon "PSTRA0";
+	}
+}
+
+class SF_PowerAndrenaline2 : PowerProtection
+{
+	Default
+	{
+		PowerUp.Duration -60;
+		DamageFactor "Normal", 0.5;
 	}
 }

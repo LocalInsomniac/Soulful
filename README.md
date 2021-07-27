@@ -38,6 +38,8 @@ Nmn
 
 PSTrooper
 
+Sgt. Pepperoni
+
 Vader
 
 Xaser
