@@ -156,9 +156,9 @@ class SF_Taurus : Demon
 				painChance *= 0.5;
 				A_FaceTarget();
 			}
-			STAU A 2 Fast A_TaurusCharge(true);
+			STAU A 1 Fast A_TaurusCharge(true);
 			Goto Missile + 2;
-			STAU AABBCCDD 2 Fast A_TaurusCharge;
+			STAU AAABBBCCCDDD 1 Fast A_TaurusCharge;
 			Goto Missile + 3;
 			
 		Ram:
@@ -199,8 +199,9 @@ class SF_Taurus : Demon
 	
 	action void A_TaurusCharge(bool start = false)
 	{
-		A_FaceTarget(5);
-		if (!start && vel.xy.Length() == 0)
+		A_FaceTarget(3);
+		if (start) A_StartSound("SF_Taurus/attack");
+		else if (vel.xy.Length() == 0)
 		{
 			SetStateLabel("Ram");
 			return;
