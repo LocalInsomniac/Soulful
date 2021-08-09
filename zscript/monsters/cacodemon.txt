@@ -4,7 +4,7 @@ class SF_CacodemonSpawner : Actor
 	override void PostBeginPlay()
 	{
 		super.PostBeginPlay();
-		class<Actor> spawn = ((curSector && curSector.lightLevel <= 128 && Random(0, 8) == 0) || (Soulful.IsOnGrass(self) && Random(0, 16) == 0)) ? 'SF_Watcher' : 'SF_Cacodemon';
+		class<Actor> spawn = ((curSector && curSector.lightLevel <= 128 && Random(0, 7) == 0) || (Soulful.IsOnGrass(self) && Random(0, 15) == 0)) ? 'SF_Watcher' : 'SF_Cacodemon';
 		A_SpawnItemEx(spawn, flags: SXF_TransferAmbushFlag | SXF_TransferPointers | SXF_TransferSpecial);
 		Destroy();
 	}
