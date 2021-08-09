@@ -4,7 +4,7 @@ class SF_DemonSpawner : Actor
 	override void PostBeginPlay()
 	{
 		super.PostBeginPlay();
-		class<Actor> spawn = (Soulful.IsOnMud(self) && Random(0, 4) == 0) ? 'SF_Butcher' : 'SF_Demon';
+		class<Actor> spawn = (Soulful.IsOnMud(self) && Random(0, 3) == 0) ? 'SF_Butcher' : (Random(0, 3) == 0 ? 'SF_Taurus' : 'SF_Demon');
 		A_SpawnItemEx(spawn, flags: SXF_TransferAmbushFlag | SXF_TransferPointers | SXF_TransferSpecial);
 		Destroy();
 	}
@@ -120,4 +120,111 @@ class SF_Butcher : Demon
 		painChance = default.painChance;
 		bDropOff = false;
 	}
-} 
+}
+
+//Taurus
+class SF_Taurus : Demon
+{
+	Default
+	{
+		Health 200;
+		PainChance 90;
+		Speed 8;
+		SeeSound "SF_Taurus/sight";
+		AttackSound "SF_Taurus/melee";
+		PainSound "SF_Taurus/pain";
+		DeathSound "SF_Taurus/death";
+		ActiveSound "SF_Taurus/active";
+		Obituary "%o was rammed by a Taurus.";
+		Tag "Taurus";
+	}
+	
+	States
+	{
+		Spawn:
+			STAU AB 10 A_Look;
+			Loop;
+
+		See:
+			STAU A 0 Fast A_TaurusReset;
+			STAU AABBCCDD 2 Fast A_Chase;
+			Goto See + 1;
+		
+		Missile:
+			STAU E 8 Fast
+			{
+				painChance *= 0.5;
+				A_FaceTarget();
+			}
+			STAU A 2 Fast A_TaurusCharge(true);
+			Goto Missile + 2;
+			STAU AABBCCDD 2 Fast A_TaurusCharge;
+			Goto Missile + 3;
+			
+		Ram:
+			STAU E 1 Fast
+			{
+				painChance = 0;
+				A_Recoil(-16);
+				A_StartSound("SF_Taurus/ram");
+			}
+			STAU E 4 Fast A_TaurusPush;
+			STAU G 5 Fast;
+			STAU G 0 Fast A_TaurusReset;
+			Goto See;
+		
+		Melee:
+			STAU EF 8 Fast A_FaceTarget;
+			STAU G 8 Fast A_SargAttack;
+			Goto See;
+
+		Pain:
+			STAU H 2 Fast A_TaurusReset;
+			STAU H 2 Fast A_Pain;
+			Goto See;
+
+		Death:
+			STAU I 7 A_TaurusReset;
+			STAU J 7 A_Scream;
+			STAU K 5;
+			STAU L 5 A_NoBlocking;
+			STAU M 4;
+			STAU N -1;
+			Stop;
+
+		Raise:
+			STAU NMLKJI 5;
+			Goto See;
+	}
+	
+	action void A_TaurusCharge(bool start = false)
+	{
+		A_FaceTarget(5);
+		if (!start && vel.xy.Length() == 0)
+		{
+			SetStateLabel("Ram");
+			return;
+		}
+		A_ChangeVelocity(12, flags: CVF_Relative | CVF_Replace);
+	}
+	
+	action void A_TaurusPush()
+	{
+		double range = 80;
+		if (target) range += target.vel.xy.Length();
+		BlockThingsIterator it = BlockThingsIterator.Create(self, range);
+        while (it.next())
+		{
+			let next = it.thing;
+			if (next == self || next.bBoss || next.bKilled || !next.bSolid || !next.bShootable || next is "Demon") continue;
+
+			double dist = Distance3D(next);
+			if (dist > range || !CheckSight(next, SF_IgnoreWaterBoundary)) continue;
+            next.DamageMObj(self, target, Random(1, 10) * 4, "None", flags: DMG_Thrustless);
+			double dir = atan2(next.pos.y - pos.y, next.pos.x - pos.x);
+			next.A_ChangeVelocity(cos(dir) * 8, sin(dir) * 8, next.vel.z + 10);
+        }
+	}
+	
+	action void A_TaurusReset() { painChance = default.painChance; }
+}

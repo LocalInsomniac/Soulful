@@ -20,6 +20,15 @@ SF_Butcher/melee DSSGTATK
 SF_Butcher/death DSSGTDTH
 $limit SF_Butcher/melee 4
 
+SF_Taurus/sight DSSGTSIT
+SF_Taurus/active DSDMACT
+SF_Taurus/pain DSDMPAIN
+SF_Taurus/attack SFBUTATK
+SF_Taurus/ram SFTAURAM
+SF_Taurus/melee DSSGTATK
+SF_Taurus/death DSSGTDTH
+$limit SF_Taurus/melee 4
+
 SF_Watcher/sight SFWATSIT
 SF_Watcher/active SFWATACT
 SF_Watcher/pain SFWATPAI
