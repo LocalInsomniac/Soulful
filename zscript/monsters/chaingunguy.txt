@@ -22,7 +22,7 @@ class SF_ChaingunGuy : ChaingunGuy
 			Loop;
 		
 		Missile:
-			SCPO E 10 A_FaceTarget;
+			SCPO U 10 A_FaceTarget;
 			SCPO FE 4 Bright A_CPosAttack;
 			SCPO F 0 A_CPosRefire;
 			Goto Missile + 1;

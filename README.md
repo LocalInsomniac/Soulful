@@ -20,6 +20,8 @@ Can't Sleep
 
 DrPyspy
 
+Gez
+
 Hellstorm Archon
 
 JoeyTD
@@ -43,6 +45,8 @@ Sgt. Pepperoni
 Vader
 
 Xaser
+
+Xim
 
 ### [SFX]
 
