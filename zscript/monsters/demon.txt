@@ -216,7 +216,7 @@ class SF_Taurus : Demon
         while (it.next())
 		{
 			let next = it.thing;
-			if (next == self || next.bBoss || next.bKilled || !next.bSolid || !next.bShootable || next is "Demon") continue;
+			if (next == self || next.bBoss || next.bKilled || !next.bSolid || !next.bShootable || (infighting < 1 && next is "Demon")) continue;
 
 			double dist = Distance3D(next);
 			if (dist > range || !CheckSight(next, SF_IgnoreWaterBoundary)) continue;

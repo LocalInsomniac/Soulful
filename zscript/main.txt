@@ -78,7 +78,7 @@ class Soulful : EventHandler
 		{
 			let next = it.thing;
 			if (next == actor || next.bKilled || next.bNoRadiusDmg
-			|| ((actor is "SF_Watcher" || actor is "SF_WatcherGas") && next is "Cacodemon")) continue;
+			|| (infighting < 1 && (actor is "SF_Watcher" || actor is "SF_WatcherGas") && next is "Cacodemon")) continue;
 
 			double dist = actor.Distance3D(next);
 			if (dist > attackDist || !actor.CheckSight(next, SF_IgnoreWaterBoundary)) continue;
