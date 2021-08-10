@@ -265,11 +265,13 @@ class SF_BerserkSpawner : RandomSpawner
 {
 	Default
 	{
-		DropItem "Berserk", 255, 1;
+		DropItem "SF_Berserk", 255, 1;
 		DropItem "SF_QuadDamageSphere", 255, 1;
 		DropItem "SF_AndrenalinePack", 255, 1;
 	}
 }
+
+class SF_Berserk : Berserk {}
 
 class SF_QuadDamageSphere : Berserk
 {
@@ -293,6 +295,10 @@ class SF_AndrenalinePack : Berserk
 	
 	States
 	{
+		Spawn:
+			SARK A -1 Bright;
+			Stop;
+
 		Pickup:
 			TNT1 A 0 A_GiveInventory("SF_PowerAndrenaline");
 			TNT1 A 0 A_GiveInventory("SF_PowerAndrenaline2");

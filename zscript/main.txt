@@ -39,6 +39,7 @@ class Soulful : EventHandler
 			case ('BigTree'): if (randomizeDecorations) e.replacement = "SF_BigTree"; break;
 			case ('Stalagtite'): if (randomizeDecorations) e.replacement = "SF_Stalagtite"; break;
 			case ('BurningBarrel'): if (randomizeDecorations) e.replacement = "SF_BurningBarrel"; break;
+			case ('Berserk'): if (sv_sf_randomizeItems) e.replacement = "SF_BerserkSpawner"; break;
 		}
 	}
 	
@@ -68,6 +69,9 @@ class Soulful : EventHandler
 			case ('SF_BigTree'): e.replacee = "BigTree"; break;
 			case ('SF_Stalagtite'): e.replacee = "Stalagtite"; break;
 			case ('SF_BurningBarrel'): e.replacee = "BurningBarrel"; break;
+			case ('SF_BerserkSpawner'):
+			case ('SF_QuadDamageSphere'):
+			case ('SF_AndrenalinePack'): e.replacee = "Berserk"; break;
 		}
 	}
 	
@@ -240,7 +244,7 @@ class SF_PowerAndrenaline : PowerDoubleFiringSpeed
 	{
 		PowerUp.Duration -60;
 		PowerUp.Color "FF 00 00", 0.25;
-		Inventory.Icon "PSTRA0";
+		Inventory.Icon "SARKA0";
 	}
 }
 

@@ -24,6 +24,7 @@ OptionMenu "SF_Options"
 	StaticText ""
 	StaticText "Gameplay options", "Yellow"
 	Option "Randomize monsters", "sv_sf_randomizeMonsters", "YesNo"
+	Option "Randomize items", "sv_sf_randomizeItems", "YesNo"
 	Option "Randomize barrels", "sv_sf_randomizeBarrels", "YesNo"
 }
 
