@@ -1,0 +1,75 @@
+//Health Bonus Spawner
+class SF_HealthBonusSpawner : Actor
+{
+	override void PostBeginPlay()
+	{
+		super.PostBeginPlay();
+		class<Actor> spawn = ((curSector && curSector.IsSecret()) || Random(0, 4) == 0) ? 'SF_SuperHealthBonus' : 'SF_HealthBonus';
+		A_SpawnItemEx(spawn, flags: SXF_TransferAmbushFlag | SXF_TransferPointers | SXF_TransferSpecial);
+		Destroy();
+	}
+}
+
+//Health Bonus
+class SF_HealthBonus : HealthBonus {}
+
+//Super Health Bonus
+class SF_SuperHealthBonus : HealthBonus
+{
+	Default
+	{
+		Translation "192:207=168:183", "240:247=184:191";
+		Inventory.Amount 2;
+		Inventory.MaxAmount 300;
+		Inventory.PickupMessage "Picked up a super health bonus.";
+	}
+}
+
+//Berserk Spawner
+class SF_BerserkSpawner : RandomSpawner
+{
+	Default
+	{
+		DropItem "SF_Berserk", 255, 1;
+		DropItem "SF_QuadDamageSphere", 255, 1;
+		DropItem "SF_AndrenalinePack", 255, 1;
+	}
+}
+
+//Berserk
+class SF_Berserk : Berserk {}
+
+//Quad Damage Sphere
+class SF_QuadDamageSphere : Berserk
+{
+	Default { Inventory.PickUpMessage "Quadruple Damage!"; }
+	
+	States
+	{
+		Spawn:
+			SQDS AB 6 Bright;
+			Loop;
+
+		Pickup:
+			TNT1 A 0 A_GiveInventory("SF_PowerQuadDamage");
+			Stop;
+	}
+}
+
+//Andrenaline Pack
+class SF_AndrenalinePack : Berserk
+{
+	Default { Inventory.PickUpMessage "Andrenaline Rush!"; }
+	
+	States
+	{
+		Spawn:
+			SARK A -1 Bright;
+			Stop;
+
+		Pickup:
+			TNT1 A 0 A_GiveInventory("SF_PowerAndrenaline");
+			TNT1 A 0 A_GiveInventory("SF_PowerAndrenaline2");
+			Stop;
+	}
+}

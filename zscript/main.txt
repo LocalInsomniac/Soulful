@@ -39,6 +39,8 @@ class Soulful : EventHandler
 			case ('BigTree'): if (randomizeDecorations) e.replacement = "SF_BigTree"; break;
 			case ('Stalagtite'): if (randomizeDecorations) e.replacement = "SF_Stalagtite"; break;
 			case ('BurningBarrel'): if (randomizeDecorations) e.replacement = "SF_BurningBarrel"; break;
+			case ('HealthBonus'): if (sv_sf_randomizeItems) e.replacement = "SF_HealthBonusSpawner"; break;
+			case ('ArmorBonus'): if (sv_sf_randomizeItems) e.replacement = "SF_ArmorBonusSpawner"; break;
 			case ('Berserk'): if (sv_sf_randomizeItems) e.replacement = "SF_BerserkSpawner"; break;
 		}
 	}
@@ -69,6 +71,12 @@ class Soulful : EventHandler
 			case ('SF_BigTree'): e.replacee = "BigTree"; break;
 			case ('SF_Stalagtite'): e.replacee = "Stalagtite"; break;
 			case ('SF_BurningBarrel'): e.replacee = "BurningBarrel"; break;
+			case ('SF_HealthBonusSpawner'):
+			case ('SF_HealthBonus'):
+			case ('SF_SuperHealthBonus'): e.replacee = "HealthBonus"; break;
+			case ('SF_ArmorBonusSpawner'):
+			case ('SF_ArmorBonus'):
+			case ('SF_SuperArmorBonus'): e.replacee = "ArmorBonus"; break;
 			case ('SF_BerserkSpawner'):
 			case ('SF_QuadDamageSphere'):
 			case ('SF_AndrenalinePack'): e.replacee = "Berserk"; break;

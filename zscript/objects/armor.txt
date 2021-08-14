@@ -1,0 +1,26 @@
+//Armor Bonus Spawner
+class SF_ArmorBonusSpawner : Actor
+{
+	override void PostBeginPlay()
+	{
+		super.PostBeginPlay();
+		class<Actor> spawn = ((curSector && curSector.IsSecret()) || Random(0, 4) == 0) ? 'SF_SuperArmorBonus' : 'SF_ArmorBonus';
+		A_SpawnItemEx(spawn, flags: SXF_TransferAmbushFlag | SXF_TransferPointers | SXF_TransferSpecial);
+		Destroy();
+	}
+}
+
+//Armor Bonus
+class SF_ArmorBonus : ArmorBonus {}
+
+//Super Armor Bonus
+class SF_SuperArmorBonus : ArmorBonus
+{
+	Default
+	{
+		Translation "112:127=168:191", "152:159=32:47";
+		Armor.SaveAmount 2;
+		Armor.MaxSaveAmount 300;
+		Inventory.PickupMessage "Picked up a super armor bonus.";
+	}
+}
