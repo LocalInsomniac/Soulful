@@ -59,7 +59,7 @@ class SF_QuadDamageSphere : Berserk
 //Andrenaline Pack
 class SF_AndrenalinePack : Berserk
 {
-	Default { Inventory.PickUpMessage "Andrenaline Rush!"; }
+	Default { Inventory.PickUpMessage "You feel quick, but brittle!"; }
 	
 	States
 	{
