@@ -29,3 +29,5 @@ server bool sv_sf_r_ss = false;
 
 server bool sv_sf_randomizeItems = true;
 server bool sv_sf_randomizeBarrels = true;
+
+server bool sv_sf_demoknight = false;

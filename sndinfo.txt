@@ -29,6 +29,23 @@ SF_Taurus/melee DSSGTATK
 SF_Taurus/death DSSGTDTH
 $limit SF_Taurus/melee 4
 
+$random SF_Taurus/demo {SF_Taurus/demo1 SF_Taurus/demo2 SF_Taurus/demo3}
+$random SF_Taurus/ramworld {SF_Taurus/ramworld1 SF_Taurus/ramworld2 SF_Taurus/ramworld3}
+$random SF_Taurus/ramflesh {SF_Taurus/ramflesh1 SF_Taurus/ramflesh2 SF_Taurus/ramflesh3 SF_Taurus/ramflesh50 SF_Taurus/ramflesh50}
+$random SF_Taurus/ramflesh50 {SF_Taurus/ramflesh4 SF_Taurus/ramflesh5 SF_Taurus/ramflesh6}
+SF_Taurus/demo1 SFTAUCH1
+SF_Taurus/demo2 SFTAUCH2
+SF_Taurus/demo3 SFTAUCH3
+SF_Taurus/ramflesh1 SFTAURF1
+SF_Taurus/ramflesh2 SFTAURF2
+SF_Taurus/ramflesh3 SFTAURF3
+SF_Taurus/ramflesh4 SFTAURF4
+SF_Taurus/ramflesh5 SFTAURF5
+SF_Taurus/ramflesh6 SFTAURF6
+SF_Taurus/ramworld1 SFTAURW1
+SF_Taurus/ramworld2 SFTAURW2
+SF_Taurus/ramworld3 SFTAURW3
+
 SF_Watcher/sight SFWATSIT
 SF_Watcher/active SFWATACT
 SF_Watcher/pain SFWATPAI
