@@ -1,12 +1,11 @@
-//Barrel/Lost Soul debris
-class SF_Debris : Actor
-{
-	Default
-	{
+// Barrel/Lost Soul debris
+class SF_Debris : Actor {
+	Default {
 		+Corpse
 		+NoTeleport
 		+NoBlockMap
 		+NotOnAutomap
+		
 		FloatBobPhase 0;
 		Health 10;
 		Radius 8;
@@ -15,8 +14,7 @@ class SF_Debris : Actor
 		Gravity 0.6;
 	}
 	
-	States
-	{
+	States {
 		Spawn:
 			SDEB A 0 NoDelay A_Jump(128, 5);
 			SDEB ABCD 3;
@@ -30,12 +28,11 @@ class SF_Debris : Actor
 	}
 }
 
-//Fire
-class SF_Fire : Actor
-{
-	Default
-	{
+// Fire
+class SF_Fire : Actor {
+	Default {
 		+DropOff
+		
 		Radius 6;
 		Height 16;
 		Gravity 0.5;
@@ -44,8 +41,7 @@ class SF_Fire : Actor
 		DamageType "Fire";
 	}
 	
-	States
-	{
+	States {
 		Spawn:
 			TNT1 A 0 NoDelay A_Jump(128, "Spawn2");
 			SFIR A 4 Bright A_SFFire();
@@ -64,19 +60,24 @@ class SF_Fire : Actor
 			Loop;
 	}
 	
-	action void A_SFFire() { Soulful.RadiusDamage(self, 50, alpha * 10, "Fire"); }
+	action void A_SFFire() {
+		Soulful.RadiusDamage(self, 50, alpha * 10, "Fire");
+	}
 	
-	override void Tick()
-	{
+	override void Tick() {
 		super.Tick();
-		if (pos.z == floorZ)
-		{
+		
+		if (pos.z == floorZ) {
 			vel.x = 0;
 			vel.y = 0;
 		}
+		
 		alpha -= 0.002;
 		scale.x -= 0.0005;
 		scale.y -= 0.0005;
-		if (waterLevel > 0 || alpha <= 0) Destroy();
+
+		if (waterLevel > 0 || alpha <= 0) {
+			Destroy();
+		}
 	}
 }

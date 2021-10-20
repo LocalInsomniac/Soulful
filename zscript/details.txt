@@ -1,30 +1,30 @@
-//Detail base
-class SF_Detail : Actor
-{
-	Default
-	{
+// Detail Base
+class SF_Detail : Actor {
+	Default {
 		+NoInteraction
 		+NotOnAutomap
+		
 		Radius 0.5;
 		Height 1;
 		FloatBobPhase 0;
 	}
-	
-	override void PostBeginPlay()
-	{
+
+	override void PostBeginPlay() {
 		super.PostBeginPlay();
-		if (pos.z != floorZ) Destroy();
+		
+		if (pos.z != floorZ) {
+			Destroy();
+		}
 	}
 }
 
-//Grass
-class SF_Grass : SF_Detail
-{
-	States
-	{
+// Grass
+class SF_Grass : SF_Detail {
+	States {
 		Spawn:
 			TNT1 A 0 NoDelay { scale = FRandom(0.5, 1) * (RandomPick(-1, 1), 1); }
 			Goto Grass;
+
 		Grass:
 			TNT1 A 0 A_Jump(128, 2);
 			SGRA A -1;
@@ -34,11 +34,9 @@ class SF_Grass : SF_Detail
 	}
 }
 
-//Tall grass
-class SF_TallGrass : SF_Grass
-{
-	States
-	{
+// Tall Grass
+class SF_TallGrass : SF_Grass {
+	States {
 		Grass:
 			TNT1 A 0 A_Jump(128, 2);
 			SGRA C -1;

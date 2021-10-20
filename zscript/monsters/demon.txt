@@ -1,20 +1,13 @@
-//Demon Spawner
-class SF_DemonSpawner : Actor
-{
-	override void PostBeginPlay()
-	{
-		super.PostBeginPlay();
+// Demon Spawner
+class SF_DemonSpawner : SF_Spawner {
+	override void SetSpawn() {
 		class<Actor> spawn = (Soulful.IsOnMud(self) && Random(0, 3) == 0) ? 'SF_Butcher' : (Random(0, 3) == 0 ? 'SF_Taurus' : 'SF_Demon');
-		A_SpawnItemEx(spawn, flags: SXF_TransferAmbushFlag | SXF_TransferPointers | SXF_TransferSpecial);
-		Destroy();
 	}
 }
 
-//Demon
-class SF_Demon : Demon
-{
-	States
-	{
+// Demon
+class SF_Demon : Demon {
+	States {
 		Spawn:
 			SSAR AB 10 A_Look;
 			Loop;
@@ -48,11 +41,9 @@ class SF_Demon : Demon
 	}
 }
 
-//Butcher
-class SF_Butcher : Demon
-{
-	Default
-	{
+// Butcher
+class SF_Butcher : Demon {
+	Default {
 		Speed 12;
 		MaxTargetRange 260;
 		MeleeRange 48;
@@ -65,8 +56,7 @@ class SF_Butcher : Demon
 		Tag "Butcher";
 	}
 	
-	States
-	{
+	States {
 		Spawn:
 			SBUT AB 10 A_Look;
 			Loop;
@@ -77,8 +67,7 @@ class SF_Butcher : Demon
 
 		Missile:
 			SBUT E 5 Fast A_FaceTarget;
-			SBUT F 14
-			{
+			SBUT F 14 {
 				painChance = 0;
 				bDropOff = true;
 				A_FaceTarget();
@@ -115,18 +104,15 @@ class SF_Butcher : Demon
 			Goto See;
 	}
 	
-	action void A_ButcherReset()
-	{
+	action void A_ButcherReset() {
 		painChance = default.painChance;
-		bDropOff = false;
+		bDropOff = default.bDropOff;
 	}
 }
 
 //Taurus
-class SF_Taurus : Demon
-{
-	Default
-	{
+class SF_Taurus : Demon {
+	Default {
 		Health 200;
 		PainChance 90;
 		Speed 8;
@@ -139,8 +125,7 @@ class SF_Taurus : Demon
 		Tag "Taurus";
 	}
 	
-	States
-	{
+	States {
 		Spawn:
 			STAU AB 10 A_Look;
 			Loop;
@@ -151,8 +136,7 @@ class SF_Taurus : Demon
 			Goto See + 1;
 		
 		Missile:
-			STAU E 8 Fast
-			{
+			STAU E 8 Fast {
 				painChance *= 0.5;
 				A_FaceTarget();
 			}
@@ -162,29 +146,43 @@ class SF_Taurus : Demon
 			Goto Missile + 3;
 			
 		Ram:
-			STAU E 1 Fast
-			{
+			STAU E 1 Fast {
 				painChance = 0;
 				A_Recoil(-16);
-				if (sv_sf_demoknight)
-				{
+				
+				if (sv_sf_demoknight) {
 					bool hitFlesh = false;
 					double range = 80;
-					if (target) range += target.vel.xy.Length();
+					
+					if (target) {
+						range += target.vel.xy.Length();
+					}
+					
 					BlockThingsIterator it = BlockThingsIterator.Create(self, range);
-					while (it.next())
-					{
+					
+					while (it.next()) {
 						let next = it.thing;
-						if (next == self || next.bKilled || !next.bSolid || !next.bShootable || next.bNoBlood || (infighting < 1 && next is "Demon")) continue;
+						
+						if (next == self || next.bKilled || !next.bSolid || !next.bShootable || next.bNoBlood || (infighting < 1 && next is "Demon")) {
+							continue;
+						}
 
 						double dist = Distance3D(next);
-						if (dist > range || !CheckSight(next, SF_IgnoreWaterBoundary)) continue;
+						
+						if (dist > range || !CheckSight(next, SF_IgnoreWaterBoundary)) {
+							continue;
+						}
+						
 						hitFlesh = true;
 					}
+					
 					A_StartSound(hitFlesh ? "SF_Taurus/ramflesh" : "SF_Taurus/ramworld", Chan_Body);
 				}
-				else A_StartSound("SF_Taurus/ram", Chan_Body);
+				else {
+					A_StartSound("SF_Taurus/ram", Chan_Body);
+				}
 			}
+			
 			STAU E 4 Fast A_TaurusPush;
 			STAU G 5 Fast;
 			STAU G 0 Fast A_TaurusReset;
@@ -214,35 +212,52 @@ class SF_Taurus : Demon
 			Goto See;
 	}
 	
-	action void A_TaurusCharge(bool start = false)
-	{
+	action void A_TaurusCharge(bool start = false) {
 		A_FaceTarget(3);
-		if (start) A_StartSound(sv_sf_demoknight ? "SF_Taurus/demo" : "SF_Taurus/attack");
-		else if (vel.xy.Length() == 0)
-		{
-			SetStateLabel("Ram");
-			return;
+		
+		if (start) {
+			A_StartSound(sv_sf_demoknight ? "SF_Taurus/demo" : "SF_Taurus/attack");
+		} else {
+			if (vel.xy.Length() == 0) {
+				SetStateLabel("Ram");
+				return;
+			}
 		}
+		
 		A_ChangeVelocity(12, 0, vel.z, CVF_Relative | CVF_Replace);
 	}
 	
-	action void A_TaurusPush()
-	{
+	action void A_TaurusPush() {
 		double range = 80;
-		if (target) range += target.vel.xy.Length();
+		
+		if (target) {
+			range += target.vel.xy.Length();
+		}
+		
 		BlockThingsIterator it = BlockThingsIterator.Create(self, range);
-        while (it.next())
-		{
+		
+        while (it.next()) {
 			let next = it.thing;
-			if (next == self || next.bBoss || next.bKilled || !next.bSolid || !next.bShootable || (infighting < 1 && next is "Demon")) continue;
+			
+			if (next == self || next.bBoss || next.bKilled || !next.bSolid || !next.bShootable || (infighting < 1 && next is "Demon")) {
+				continue;
+			}
 
 			double dist = Distance3D(next);
-			if (dist > range || !CheckSight(next, SF_IgnoreWaterBoundary)) continue;
+			
+			if (dist > range || !CheckSight(next, SF_IgnoreWaterBoundary)) {
+				continue;
+			}
+			
             next.DamageMObj(self, target, Random(1, 10) * 4, "None", flags: DMG_Thrustless);
+			
 			double dir = atan2(next.pos.y - pos.y, next.pos.x - pos.x);
+			
 			next.A_ChangeVelocity(cos(dir) * 8, sin(dir) * 8, next.vel.z + 10);
         }
 	}
 	
-	action void A_TaurusReset() { painChance = default.painChance; }
+	action void A_TaurusReset() {
+		painChance = default.painChance;
+	}
 }

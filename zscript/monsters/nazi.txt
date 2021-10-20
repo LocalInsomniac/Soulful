@@ -1,18 +1,14 @@
-//Nazi
-class SF_NaziSpawner : RandomSpawner
-{
-	Default
-	{
+// Nazi
+class SF_NaziSpawner : RandomSpawner {
+	Default {
 		DropItem "SF_SSNazi", 255, 3;
 		DropItem "SF_SniperNazi", 255, 1;
 	}
 }
 
-//SS Guard
-class SF_SSNazi : WolfensteinSS
-{
-	Default
-	{
+// SS Guard
+class SF_SSNazi : WolfensteinSS {
+	Default {
 		SeeSound "SF_SSNazi/sight";
 		ActiveSound "SF_SSNazi/active";
 		PainSound "SF_SSNazi/pain";
@@ -20,8 +16,7 @@ class SF_SSNazi : WolfensteinSS
 		AttackSound "SF_SSNazi/attack";
 	}
 	
-	States
-	{
+	States {
 		Spawn:
 			SSSW W 10 A_Look;
 			Loop;
@@ -69,11 +64,9 @@ class SF_SSNazi : WolfensteinSS
 	}
 }
 
-//Sniper
-class SF_SniperNazi : SF_SSNazi
-{
-	Default
-	{
+// Sniper
+class SF_SniperNazi : SF_SSNazi {
+	Default {
 		Health 45;
 		Speed 10;
 		SeeSound "SF_SniperNazi/sight";
@@ -83,8 +76,7 @@ class SF_SniperNazi : SF_SSNazi
 		AttackSound "SF_SniperNazi/attack";
 	}
 	
-	States
-	{
+	States {
 		Spawn:
 			SSNI W 10 A_Look;
 			Loop;
@@ -96,8 +88,7 @@ class SF_SniperNazi : SF_SSNazi
 		Missile:
 			SSNI E 10 A_FaceTarget;
 			SSNI F 20 A_FaceTarget;
-			SSNI G 5 Bright
-			{
+			SSNI G 5 Bright {
 				A_StartSound(attackSound, Chan_Weapon);
 				A_CustomBulletAttack(5, 0, 1, Random(1, 5) * 10, "BulletPuff", 0, CBAF_NoRandom);
 			}

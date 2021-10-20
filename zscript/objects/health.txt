@@ -1,23 +1,16 @@
-//Health Bonus Spawner
-class SF_HealthBonusSpawner : Actor
-{
-	override void PostBeginPlay()
-	{
-		super.PostBeginPlay();
+// Health Bonus Spawner
+class SF_HealthBonusSpawner : SF_Spawner {
+	override void SetSpawn() {
 		class<Actor> spawn = ((curSector && curSector.IsSecret()) || Random(0, 4) == 0) ? 'SF_SuperHealthBonus' : 'SF_HealthBonus';
-		A_SpawnItemEx(spawn, flags: SXF_TransferAmbushFlag | SXF_TransferPointers | SXF_TransferSpecial);
-		Destroy();
 	}
 }
 
-//Health Bonus
+// Health Bonus
 class SF_HealthBonus : HealthBonus {}
 
-//Super Health Bonus
-class SF_SuperHealthBonus : HealthBonus
-{
-	Default
-	{
+// Super Health Bonus
+class SF_SuperHealthBonus : HealthBonus {
+	Default {
 		Translation "192:207=168:183", "240:247=184:191";
 		Inventory.Amount 2;
 		Inventory.MaxAmount 300;
@@ -25,27 +18,25 @@ class SF_SuperHealthBonus : HealthBonus
 	}
 }
 
-//Berserk Spawner
-class SF_BerserkSpawner : RandomSpawner
-{
-	Default
-	{
+// Berserk Spawner
+class SF_BerserkSpawner : RandomSpawner {
+	Default {
 		DropItem "SF_Berserk", 255, 1;
 		DropItem "SF_QuadDamageSphere", 255, 1;
 		DropItem "SF_AndrenalinePack", 255, 1;
 	}
 }
 
-//Berserk
+// Berserk
 class SF_Berserk : Berserk {}
 
-//Quad Damage Sphere
-class SF_QuadDamageSphere : Berserk
-{
-	Default { Inventory.PickUpMessage "Quadruple Damage!"; }
-	
-	States
-	{
+// Quad Damage Sphere
+class SF_QuadDamageSphere : Berserk {
+	Default {
+		Inventory.PickUpMessage "Quadruple Damage!";
+	}
+
+	States {
 		Spawn:
 			SQDS AB 6 Bright;
 			Loop;
@@ -56,13 +47,13 @@ class SF_QuadDamageSphere : Berserk
 	}
 }
 
-//Andrenaline Pack
-class SF_AndrenalinePack : Berserk
-{
-	Default { Inventory.PickUpMessage "You feel quick, but brittle!"; }
+// Andrenaline Pack
+class SF_AndrenalinePack : Berserk {
+	Default {
+		Inventory.PickUpMessage "You feel quick, yet brittle!";
+	}
 	
-	States
-	{
+	States {
 		Spawn:
 			SARK A -1 Bright;
 			Stop;

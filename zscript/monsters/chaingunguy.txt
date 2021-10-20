@@ -1,18 +1,14 @@
-//Heavy Weapon Dude Spawner
-class SF_ChaingunGuySpawner : RandomSpawner
-{
-	Default
-	{
+// Heavy Weapon Dude Spawner
+class SF_ChaingunGuySpawner : RandomSpawner {
+	Default {
 		DropItem "SF_ChaingunGuy", 255, 3;
 		DropItem "SF_HellifiedSoldier", 255, 1;
 	}
 }
 
-//Heavy Weapon Dude
-class SF_ChaingunGuy : ChaingunGuy
-{
-	States
-	{
+// Heavy Weapon Dude
+class SF_ChaingunGuy : ChaingunGuy {
+	States {
 		Spawn:
 			SCPO AB 10 A_Look;
 			Loop;
@@ -54,11 +50,9 @@ class SF_ChaingunGuy : ChaingunGuy
 	}
 }
 
-//Hellified Soldier
-class SF_HellifiedSoldier : ChaingunGuy
-{
-	Default
-	{
+// Hellified Soldier
+class SF_HellifiedSoldier : ChaingunGuy {
+	Default {
 		Speed 9;
 		SeeSound "SF_HellifiedSoldier/sight";
 		PainSound "SF_HellifiedSoldier/pain";
@@ -69,8 +63,7 @@ class SF_HellifiedSoldier : ChaingunGuy
 		Tag "Hellified Soldier";
 	}
 	
-	States
-	{
+	States {
 		Spawn:
 			SHSO AB 10 A_Look;
 			Loop;
@@ -113,11 +106,9 @@ class SF_HellifiedSoldier : ChaingunGuy
 	}
 }
 
-//Hellified Soldier Bullet
-class SF_HellifiedSoldierBullet : Actor
-{
-	Default
-	{
+// Hellified Soldier Bullet
+class SF_HellifiedSoldierBullet : Actor {
+	Default {
 		Radius 3;
 		Height 4;
 		Speed 25;
@@ -126,8 +117,7 @@ class SF_HellifiedSoldierBullet : Actor
 		Projectile;
 	}
 	
-	States
-	{
+	States {
 		Spawn:
 			SBUL AB 3 Bright;
 			Loop;
