@@ -1,4 +1,6 @@
 #include "zscript/monsters/chaingunguy.txt"
+#include "zscript/monsters/imp.txt"
 #include "zscript/monsters/demon.txt"
+#include "zscript/monsters/spectre.txt"
 #include "zscript/monsters/cacodemon.txt"
 #include "zscript/monsters/nazi.txt"

@@ -1,7 +1,12 @@
 // Cacodemon Spawner
 class SF_CacodemonSpawner : SF_Spawner {
-	override void SetSpawn() {
-		class<Actor> spawn = ((curSector && curSector.lightLevel <= 128 && Random(0, 7) == 0) || (Soulful.IsOnGrass(self) && Random(0, 15) == 0)) ? 'SF_Watcher' : 'SF_Cacodemon';
+	States {
+		Spawn:
+			TNT1 A 0 NoDelay A_JumpIf((curSector && curSector.lightLevel <= 128 && Random(0, 7) == 0) || (Soulful.IsOnGrass(self) && Random(0, 15) == 0), 2);
+			TNT1 A 0 A_Spawner("SF_Cacodemon");
+			Stop;
+			TNT1 A 0 A_Spawner("SF_Watcher");
+			Stop;
 	}
 }
 
@@ -9,6 +14,7 @@ class SF_CacodemonSpawner : SF_Spawner {
 class SF_Cacodemon : Cacodemon {
 	Default {
 		BloodColor "Blue";
+		GibHealth 200;
 	}
 	
 	States {
@@ -42,6 +48,14 @@ class SF_Cacodemon : Cacodemon {
 			SHEA K 8 A_NoBlocking;
 			SHEA L -1 A_SetFloorClip;
 			Stop;
+		
+		XDeath:
+			SHEA M 6;
+			SHEA N 6 A_XScream;
+			SHEA O 6;
+			SHEA P 6 A_NoBlocking;
+			SHEA QR 6;
+			SHEA S -1;
 		
 		Raise:
 			SHEA L 8 A_UnSetFloorClip;

@@ -1,7 +1,12 @@
 // Armor Bonus Spawner
 class SF_ArmorBonusSpawner : SF_Spawner {
-	override void SetSpawn() {
-		class<Actor> spawn = ((curSector && curSector.IsSecret()) || Random(0, 4) == 0) ? 'SF_SuperArmorBonus' : 'SF_ArmorBonus';
+	States {
+		Spawn:
+			TNT1 A 0 NoDelay A_JumpIf((curSector && curSector.IsSecret()) || Random(0, 3) == 0, 2);
+			TNT1 A 0 A_Spawner("SF_ArmorBonus");
+			Stop;
+			TNT1 A 0 A_Spawner("SF_SuperArmorBonus");
+			Stop;
 	}
 }
 
@@ -11,9 +16,14 @@ class SF_ArmorBonus : ArmorBonus {}
 // Super Armor Bonus
 class SF_SuperArmorBonus : ArmorBonus {
 	Default {
-		Translation "112:127=168:191", "152:159=32:47";
 		Armor.SaveAmount 2;
 		Armor.MaxSaveAmount 300;
 		Inventory.PickupMessage "Picked up a super armor bonus.";
+	}
+	
+	States {
+		Spawn:
+			SSAB ABCDCB 6;
+			Loop;
 	}
 }

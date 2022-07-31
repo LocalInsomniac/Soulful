@@ -30,9 +30,21 @@ class Soulful : EventHandler {
 				}
 			break;
 			
+			case 'DoomImp':
+				if (sv_sf_r_imp) {
+					e.replacement = "SF_ImpSpawner";
+				}
+			break;
+			
 			case 'Demon':
 				if (sv_sf_r_demon) {
 					e.replacement = "SF_DemonSpawner";
+				}
+			break;
+			
+			case 'Spectre':
+				if (sv_sf_r_spectre) {
+					e.replacement = "SF_Spectre";
 				}
 			break;
 			
@@ -108,10 +120,21 @@ class Soulful : EventHandler {
 				e.replacee = "ChaingunGuy";
 			break;
 			
+			case 'SF_ImpSpawner':
+			case 'SF_Imp':
+			case 'SF_Baronet':
+				e.replacee = "DoomImp";
+			break;
+			
 			case 'SF_DemonSpawner':
 			case 'SF_Demon':
 			case 'SF_Butcher':
+			case 'SF_Taurus':
 				e.replacee = "Demon";
+			break;
+			
+			case 'SF_Spectre':
+				e.replacee = "Spectre";
 			break;
 			
 			case 'SF_CacodemonSpawner':
@@ -120,6 +143,7 @@ class Soulful : EventHandler {
 				e.replacee = "Cacodemon";
 			break;
 			
+			case 'SF_NaziSpawner':
 			case 'SF_SSNazi':
 			case 'SF_SniperNazi':
 				e.replacee = "WolfensteinSS";
@@ -384,15 +408,8 @@ class Soulful : EventHandler {
 
 // Spawner Base
 class SF_Spawner : Actor {
-	class<Actor> spawn;
-	
-	virtual void SetSpawn() {}
-
-	override void PostBeginPlay() {
-		super.PostBeginPlay();
-		SetSpawn();
+	action void A_Spawner(class<Actor> spawn) {
 		A_SpawnItemEx(spawn, flags: SXF_TransferTranslation | SXF_NoCheckPosition | SXF_TransferAmbushFlag | SXF_TransferPointers | SXF_TransferSpecial);
-		Destroy();
 	}
 }
 
